@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony — Visual Craftsman</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root{
+    --ink:#0e0f10;
+    --paper:#f1ede4;
+    --accent:#ff5a36;
+    --line:#2a2a28;
+    --muted:#8c8a82;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Space Grotesk', sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:1px;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 6vw;
+    z-index:50;
+    mix-blend-mode:difference;
+  }
+  nav .logo{font-family:'Bebas Neue';font-size:1.4rem;letter-spacing:2px;}
+  nav ul{display:flex; gap:32px; list-style:none; font-size:.85rem; text-transform:uppercase; letter-spacing:1px;}
+  nav ul a{opacity:.8; transition:opacity .2s;}
+  nav ul a:hover{opacity:1;}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:0 6vw;
+    position:relative;
+  }
+  .hero .eyebrow{
+    color:var(--accent); font-size:.85rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 11vw, 9rem);
+    line-height:.92;
+    text-transform:uppercase;
+  }
+  .hero h1 span{color:var(--accent);}
+  .hero .roles{
+    margin-top:28px;
+    display:flex; flex-wrap:wrap; gap:14px;
+  }
+  .hero .roles span{
+    border:1px solid var(--line);
+    padding:8px 18px;
+    border-radius:999px;
+    font-size:.85rem;
+    color:var(--muted);
+  }
+  .hero .scroll-cue{
+    position:absolute; bottom:40px; left:6vw;
+    font-size:.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* SECTION GENERIC */
+  section{padding:120px 6vw;}
+  .label{
+    color:var(--accent); font-size:.8rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; display:block;
+  }
+  .section-title{
+    font-size:clamp(2.2rem, 5vw, 4rem);
+    text-transform:uppercase;
+    margin-bottom:50px;
+    max-width:14ch;
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px;
+  }
+  .about-grid p{
+    font-size:1.05rem; line-height:1.7; color:#cfcdc4; margin-bottom:18px;
+  }
+
+  /* SKILLS */
+  .skills-list{display:flex; flex-direction:column;}
+  .skill-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding:34px 0;
+    border-top:1px solid var(--line);
+    transition:padding-left .3s ease;
+  }
+  .skill-row:last-child{border-bottom:1px solid var(--line);}
+  .skill-row:hover{padding-left:14px; background:rgba(255,90,54,.04);}
+  .skill-row h3{font-size:clamp(1.8rem,4vw,3rem); text-transform:uppercase;}
+  .skill-row p{color:var(--muted); max-width:34ch; text-align:right; font-size:.92rem;}
+
+  /* WORK / PLACEHOLDER GRID */
+  .work-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;
+  }
+  .work-card{
+    aspect-ratio:4/3;
+    background:linear-gradient(135deg, #1b1b1a, #232220);
+    border:1px solid var(--line);
+    border-radius:6px;
+    display:flex; align-items:flex-end;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .work-card span{font-size:.85rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
+  .work-card::before{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 70% 20%, rgba(255,90,54,.18), transparent 60%);
+    opacity:0; transition:opacity .3s;
+  }
+  .work-card:hover::before{opacity:1;}
+
+  /* CONTACT */
+  .contact{
+    text-align:center;
+  }
+  .contact h2{
+    font-size:clamp(2.5rem,8vw,6rem);
+    text-transform:uppercase;
+  }
+  .contact-links{
+    margin-top:36px;
+    display:flex; justify-content:center; gap:28px; flex-wrap:wrap;
+  }
+  .contact-links a{
+    border-bottom:1px solid var(--line);
+    padding-bottom:4px;
+    font-size:.95rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition:border-color .2s, color .2s;
+  }
+  .contact-links a:hover{border-color:var(--accent); color:var(--accent);}
+
+  footer{
+    padding:30px 6vw;
+    color:var(--muted);
+    font-size:.8rem;
+    display:flex; justify-content:space-between;
+    border-top:1px solid var(--line);
+  }
+
+  @media(max-width:700px){
+    nav ul{display:none;}
+    .about-grid{grid-template-columns:1fr;}
+    .skill-row{flex-direction:column; align-items:flex-start; gap:10px;}
+    .skill-row p{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ANTHONY</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Video · Graphics · Web</div>
+  <h1>I build things<br>that look <span>alive.</span></h1>
+  <div class="roles">
+    <span>Video Editor</span>
+    <span>Graphic Designer</span>
+    <span>Website Designer</span>
+  </div>
+  <div class="scroll-cue">Scroll ↓</div>
+</section>
+
+<section id="about">
+  <span class="label">Who I am</span>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <p>
+      I'm Anthony — a creative who works across three mediums: motion, image, and screen.
+      Whether it's cutting a video that holds attention to the last second, designing a
+      graphic that says everything in one glance, or building a website that feels as good
+      as it looks, I care about the same thing every time: making it land.
+    </p>
+    <p>
+      I treat every project like it's the only one that matters. No templates pretending
+      to be original, no shortcuts that show. Just clean execution, sharp visuals, and
+      work that actually does its job — whether that's converting a viewer, a buyer, or
+      a visitor into someone who remembers your name.
+    </p>
+  </div>
+</section>
+
+<section id="skills">
+  <span class="label">What I do</span>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-list">
+    <div class="skill-row">
+      <h3>Video Editing</h3>
+      <p>Cuts, pacing, color grading, transitions, and sound design that keep people watching.</p>
+    </div>
+    <div class="skill-row">
+      <h3>Graphic Design</h3>
+      <p>Logos, posters, social content, and brand visuals built to actually stand out.</p>
+    </div>
+    <div class="skill-row">
+      <h3>Website Design</h3>
+      <p>Clean, fast, responsive sites designed to look good and work even better.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <span class="label">A taste</span>
+  <h2 class="section-title">Selected Work</h2>
+  <div class="work-grid">
+    <div class="work-card"><span>Video Project 01</span></div>
+    <div class="work-card"><span>Graphic Design 02</span></div>
+    <div class="work-card"><span>Website Build 03</span></div>
+    <div class="work-card"><span>Video Project 04</span></div>
+    <div class="work-card"><span>Graphic Design 05</span></div>
+    <div class="work-card"><span>Website Build 06</span></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <span class="label">Let's work together</span>
+  <h2>Get In Touch</h2>
+  <div class="contact-links">
+    <a href="mailto:youremail@example.com">Email</a>
+    <a href="https://instagram.com/yourhandle" target="_blank">Instagram</a>
+    <a href="https://twitter.com/yourhandle" target="_blank">X / Twitter</a>
+    <a href="https://discord.gg/yourinvite" target="_blank">Discord</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Anthony</span>
+  <span>Video · Graphics · Web</span>
+</footer>
+
+</body>
+</html>
+    
